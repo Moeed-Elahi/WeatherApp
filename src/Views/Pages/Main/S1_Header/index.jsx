@@ -5,24 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setWeather } from '../../../../Redux/store/weatherSlice';
 import { styled } from '@mui/system';
 import { Grid ,Container } from "@mui/material"
-import Sun from "../../../../assets/images/block.png"
-import cloud from "../../../../assets/images/ethC.png"
 import { SectionHeading, SectionSubHeading } from '@/Views/Styles/style';
 const API_KEY = '1aae245da000437dbba122742231508'; // Replace with your API key
 const API_URL = `https://api.weatherapi.com/v1/current.json?key=${API_KEY}`;
-const weatherConditionToBackground = {
-  Sunny: {Sun},
-  Cloudy: {cloud},
-  // Add more mappings for other conditions
-};
+
 const StyledWeatherApp = styled('div')`
   display: flex;
   justify-content: center;
-  background-image: ${({ weatherCondition }) =>
-    weatherCondition
-      ? `url(${weatherConditionToBackground[weatherCondition]})`
-      : ''};
-      /* background-image */
+ 
 `;
 
 const WeatherApp = () => {
@@ -43,17 +33,18 @@ console.log("weatherData",weatherData);
   return (
     <>
         <SectionHeading>Weather Update</SectionHeading>
-        <StyledWeatherApp weatherCondition={weatherData?.current?.condition.text}>
+        <StyledWeatherApp>
     <Container >
       
       <Grid container>
         <Grid xs={12} md={6}>
+        <SectionHeading fs="20px" align="left" p="20px 0">Enter City Name</SectionHeading>
       <TextField
-        label="Enter city name"
+        label="name"
         variant="outlined"
         value={city}
         onChange={(e) => setCity(e.target.value)}
-        sx={{ width: 300, marginTop: 20 }}
+        sx={{ width: 300, marginTop: 0 }}
       />
       <br/>
       <Button variant="contained" onClick={fetchWeatherData} sx={{ marginTop: 5 }}>
